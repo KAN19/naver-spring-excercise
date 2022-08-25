@@ -24,7 +24,6 @@ public class Department {
     private String description;
 
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
-    @JsonManagedReference
     private List<Employee> employees;
 
 

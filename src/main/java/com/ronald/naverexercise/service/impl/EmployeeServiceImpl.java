@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -32,27 +31,21 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee saveEmployee(Employee employee, Long departmentId) {
-        Optional<Department> department = departmentRepository.findById(departmentId);
-
-        if(department.isEmpty()) {
-            throw new IllegalArgumentException("Khong tim thay department " + departmentId);
-        }
-
-        employee.setDepartment(department.get());
+    public Employee saveEmployee(Employee employee) {
         return employeeRepository.save(employee);
     }
 
+
     @Override
-    public Employee updateEmployee(Employee employeeRequest, Long departmentId, Long employeeId) {
+    public Employee updateEmployee(Employee employeeRequest, Long employeeId) {
 
         Employee employee = employeeRepository.findById(employeeId).orElseThrow(
                 () -> new IllegalArgumentException("Khong tim thay employee" + employeeId)
         );
 
-        Optional<Department> department = departmentRepository.findById(departmentId);
+        Optional<Department> department = departmentRepository.findById(employeeRequest.getDepartment().getDepartmentId());
         if(department.isEmpty()) {
-            throw new IllegalArgumentException("Khong tim thay department " + departmentId);
+            throw new IllegalArgumentException("Khong tim thay department " + employeeRequest.getDepartment().getDepartmentId());
         }
 
         employee.setGender(employeeRequest.getGender());

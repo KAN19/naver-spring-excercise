@@ -1,13 +1,11 @@
 package com.ronald.naverexercise.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -24,14 +22,15 @@ public class Employee {
 
     private String name;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date birthDate;
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private LocalDate birthDate;
 
-    private String gender;
+    @Enumerated(value = EnumType.STRING)
+    private Gender gender;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id", nullable = false)
-    @JsonBackReference
+    @JoinColumn(name = "departmentId", nullable = false)
+    @JsonIgnore
     private Department department;
 
 }

@@ -1,4 +1,4 @@
-package com.ronald.naverexercise.dto;
+package com.ronald.naverexercise.payload.dto;
 
 import com.ronald.naverexercise.entity.Employee;
 import lombok.Data;
