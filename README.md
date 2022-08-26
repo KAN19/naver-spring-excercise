@@ -16,8 +16,7 @@
     },
     "message": null
 }
-
-
+```
 ### 4) Get employee with Mybatis 
 `GET /api/employees/with-department-ob/2`
 ### Response
@@ -38,3 +37,21 @@
     },
     "message": null
 }
+```
+### 5) Factory method
+`GET /factory-method/server`
+### Response
+ ```json
+{
+  {
+    "status": "success",
+    "data": {
+        "type": "Server"
+    },
+    "message": null
+}
+}
+```
+
+
+
