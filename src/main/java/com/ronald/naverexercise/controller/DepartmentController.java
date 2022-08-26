@@ -1,8 +1,9 @@
 package com.ronald.naverexercise.controller;
 
 import com.ronald.naverexercise.payload.BaseResponse;
-import com.ronald.naverexercise.payload.dto.DepartmentDto;
+import com.ronald.naverexercise.payload.dto.department.DepartmentDto;
 import com.ronald.naverexercise.entity.Department;
+import com.ronald.naverexercise.payload.dto.department.DepartmentWithNumEmpDto;
 import com.ronald.naverexercise.service.DepartmentService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,12 @@ public class DepartmentController {
     public ResponseEntity<?> getDepartmentById(@PathVariable("id") Long id) {
         Department departmentById = departmentService.getDepartmentById(id);
         return ResponseEntity.ok().body(BaseResponse.success(departmentById));
+    }
+
+    @GetMapping("/with-num-employees/{id}")
+    public ResponseEntity<?> getDepartmentByIdWithNumEmployees(@PathVariable("id") Long id) {
+        DepartmentWithNumEmpDto departmentWithNumEmpDto = departmentService.getDepartmentWithNumEmployees(id);
+        return ResponseEntity.ok().body(BaseResponse.success(departmentWithNumEmpDto));
     }
 
     @PostMapping

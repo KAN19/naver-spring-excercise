@@ -21,6 +21,12 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return ResponseEntity.badRequest().body(BaseResponse.error(exception.getMessage()));
     }
 
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<?> commonException(Exception exception, WebRequest request) {
+        return ResponseEntity.badRequest().body(BaseResponse.error(exception.getMessage()));
+    }
+
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         return ResponseEntity.badRequest()

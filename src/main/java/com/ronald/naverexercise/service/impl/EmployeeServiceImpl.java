@@ -3,12 +3,15 @@ package com.ronald.naverexercise.service.impl;
 import com.ronald.naverexercise.entity.Department;
 import com.ronald.naverexercise.entity.Employee;
 import com.ronald.naverexercise.error.NotFoundException;
+import com.ronald.naverexercise.payload.dto.employee.EmployeeWithDepartmentDto;
 import com.ronald.naverexercise.repository.DepartmentRepository;
 import com.ronald.naverexercise.repository.EmployeeRepository;
+import com.ronald.naverexercise.repository.mapper.EmployeeMapper;
 import com.ronald.naverexercise.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,9 +24,18 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private DepartmentRepository departmentRepository;
 
+    @Resource
+    private EmployeeMapper employeeMapper;
+
     @Override
     public List<Employee> getEmployees() {
         return employeeRepository.findAll();
+    }
+
+    @Override
+    public EmployeeWithDepartmentDto getEmployeesWithDepartmentObject(Long id) {
+        EmployeeWithDepartmentDto employeeWithDepartmentObjectsById = employeeMapper.getEmployeeWithDepartmentObjectsById(id);
+        return employeeWithDepartmentObjectsById;
     }
 
     @Override

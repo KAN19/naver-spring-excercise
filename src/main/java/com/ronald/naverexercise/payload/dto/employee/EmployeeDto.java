@@ -1,4 +1,4 @@
-package com.ronald.naverexercise.payload.dto;
+package com.ronald.naverexercise.payload.dto.employee;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ronald.naverexercise.entity.Department;

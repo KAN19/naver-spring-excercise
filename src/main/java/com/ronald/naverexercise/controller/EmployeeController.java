@@ -1,9 +1,9 @@
 package com.ronald.naverexercise.controller;
 
-import com.ronald.naverexercise.error.NotFoundException;
 import com.ronald.naverexercise.payload.BaseResponse;
-import com.ronald.naverexercise.payload.dto.EmployeeDto;
+import com.ronald.naverexercise.payload.dto.employee.EmployeeDto;
 import com.ronald.naverexercise.entity.Employee;
+import com.ronald.naverexercise.payload.dto.employee.EmployeeWithDepartmentDto;
 import com.ronald.naverexercise.service.EmployeeService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -38,6 +38,12 @@ public class EmployeeController {
         Employee employee = employeeService.getEmployeeById(employeeId);
         EmployeeDto employeeDto = modelMapper.map(employee, EmployeeDto.class);
         return ResponseEntity.ok().body(BaseResponse.success(employeeDto));
+    }
+
+    @GetMapping("/with-department-ob/{id}")
+    public ResponseEntity<?> getEmployeeWithDepById(@PathVariable("id") Long employeeId) {
+        EmployeeWithDepartmentDto employee = employeeService.getEmployeesWithDepartmentObject(employeeId);
+        return ResponseEntity.ok().body(BaseResponse.success(employee));
     }
 
     @PostMapping
