@@ -1,5 +1,6 @@
 package com.ronald.naverexercise.controller;
 
+import com.ronald.naverexercise.error.NotFoundException;
 import com.ronald.naverexercise.payload.BaseResponse;
 import com.ronald.naverexercise.payload.dto.EmployeeDto;
 import com.ronald.naverexercise.entity.Employee;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,7 +41,7 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public ResponseEntity<?> saveEmployee(@RequestBody EmployeeDto employeeDto) {
+    public ResponseEntity<?> saveEmployee(@RequestBody @Valid EmployeeDto employeeDto) {
 
         Employee employeeRequest = modelMapper.map(employeeDto, Employee.class);
 

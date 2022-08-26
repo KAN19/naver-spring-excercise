@@ -2,6 +2,7 @@ package com.ronald.naverexercise.service.impl;
 
 import com.ronald.naverexercise.entity.Department;
 import com.ronald.naverexercise.entity.Employee;
+import com.ronald.naverexercise.error.NotFoundException;
 import com.ronald.naverexercise.repository.DepartmentRepository;
 import com.ronald.naverexercise.repository.EmployeeRepository;
 import com.ronald.naverexercise.service.EmployeeService;
@@ -32,6 +33,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee saveEmployee(Employee employee) {
+        Long departmentId = employee.getDepartment().getDepartmentId();
+        Department department = departmentRepository.findById(departmentId)
+                .orElseThrow(() -> new NotFoundException("Khong tim thay department " + departmentId));
+
         return employeeRepository.save(employee);
     }
 
@@ -40,12 +45,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee updateEmployee(Employee employeeRequest, Long employeeId) {
 
         Employee employee = employeeRepository.findById(employeeId).orElseThrow(
-                () -> new IllegalArgumentException("Khong tim thay employee" + employeeId)
+                () -> new NotFoundException("Khong tim thay employee" + employeeId)
         );
 
         Optional<Department> department = departmentRepository.findById(employeeRequest.getDepartment().getDepartmentId());
         if(department.isEmpty()) {
-            throw new IllegalArgumentException("Khong tim thay department " + employeeRequest.getDepartment().getDepartmentId());
+            throw new NotFoundException("Khong tim thay department " + employeeRequest.getDepartment().getDepartmentId());
         }
 
         employee.setGender(employeeRequest.getGender());
@@ -59,7 +64,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public void deleteEmployee(Long id) {
         Employee employee = employeeRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("Khong tim thay employee" + id)
+                () -> new NotFoundException("Khong tim thay employee" + id)
         );
 
         employeeRepository.delete(employee);

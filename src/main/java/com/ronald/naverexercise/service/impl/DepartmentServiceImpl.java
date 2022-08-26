@@ -1,6 +1,7 @@
 package com.ronald.naverexercise.service.impl;
 
 import com.ronald.naverexercise.entity.Department;
+import com.ronald.naverexercise.error.NotFoundException;
 import com.ronald.naverexercise.repository.DepartmentRepository;
 import com.ronald.naverexercise.service.DepartmentService;
 import org.modelmapper.ModelMapper;
@@ -35,7 +36,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public Department putDepartment(Long id, Department departmentRequest) {
         Department department = departmentRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Khong tim thay " + id));
+                .orElseThrow(() -> new NotFoundException("Khong tim thay " + id));
 
         return departmentRepository.save(department);
     }
@@ -43,7 +44,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public void deleteDepartment(Long id) {
         Department department = departmentRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Khong tim thay " + id));
+                .orElseThrow(() -> new NotFoundException("Khong tim thay " + id));
         departmentRepository.delete(department);
     }
 }
