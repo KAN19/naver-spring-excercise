@@ -1,1 +1,1 @@
-Deprecated and move to Naver homework
+Deprecated and move to https://github.com/KAN19/likelion-training
